@@ -1,6 +1,7 @@
 import {promises as fs} from "fs"
 
-init();
+//init();
+writeReadJson();
 
 async function init() {
     try {
@@ -8,6 +9,28 @@ async function init() {
         await fs.appendFile("teste.txt", "\nteste append file");
         const data = await fs.readFile("teste.txt", "utf-8");
         console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function writeReadJson() {
+    try {
+        //Faz a escrita inicial no arquivo
+        const arrayCarros = [ "Gol", "Palio", "Uno" ];
+        const obj = {
+            carros: arrayCarros
+        }
+        await fs.writeFile("teste.json", JSON.stringify(obj));
+
+        //Faz a leitura do arquivo
+        const data = JSON.parse(await fs.readFile("teste.json"));
+
+        //Modifica o conteúdo
+        data.carros.push("Sandero");
+
+        //Sobrescreve o arquivo com o contúdo modificado
+        await fs.writeFile("teste.json", JSON.stringify(data));
     } catch (err) {
         console.log(err);
     }
