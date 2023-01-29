@@ -27,5 +27,5 @@ app.use((err, req, res, next) => {
 
 
 app.listen("8099", () => {
-    console.log("API starting!");
+    console.log("API started!");
 });
