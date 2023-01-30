@@ -1,0 +1,20 @@
+{
+  "nextId": 11,
+  "accounts": [
+    {
+      "id": 3,
+      "name": "Pedro Holanda",
+      "balance": 1114.72
+    },
+    {
+      "id": 6,
+      "name": "Tiago Noronha",
+      "balance": 2500
+    },
+    {
+      "id": 10,
+      "name": "Maria do Carmo",
+      "balance": 3244.52
+    }
+  ]
+}
