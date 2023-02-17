@@ -1,10 +1,10 @@
 {
-  "nextId": 11,
+  "nextId": 23,
   "accounts": [
     {
       "id": 3,
-      "name": "Pedro Holanda",
-      "balance": 1114.72
+      "name": "Maria do Carmo Souza",
+      "balance": 3300
     },
     {
       "id": 6,
@@ -12,9 +12,24 @@
       "balance": 2500
     },
     {
-      "id": 10,
-      "name": "Maria do Carmo",
-      "balance": 3244.52
+      "id": 17,
+      "name": "João da Silva",
+      "balance": 1700
+    },
+    {
+      "id": 18,
+      "name": "Mateus Martins",
+      "balance": 1700
+    },
+    {
+      "id": 19,
+      "name": "Carlos Aarújo",
+      "balance": 8000
+    },
+    {
+      "id": 22,
+      "name": "Augusto Conte",
+      "balance": 4500
     }
   ]
 }
