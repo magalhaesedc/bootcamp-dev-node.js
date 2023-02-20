@@ -4,10 +4,10 @@ import { promises as fs } from "fs";
 import winston from "winston";
 import cors from "cors";
 import basicAuth from "express-basic-auth";
-import { buildSchema, graphql }  from "graphql";
 import { graphqlHTTP } from "express-graphql";
-import AccountServices from "./services/account.services.js";
 import Schema from "./schema/index.js";
+import swaggerUi from "swagger-ui-express";
+import {swaggerDocument} from "./doc.js";
 
 global.fileName = "accounts.json";
 
@@ -74,6 +74,16 @@ const root = {
 const app = express();
 app.use(express.json());
 
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/graphql", graphqlHTTP({
+    schema: Schema,
+    //rootValue: root,
+    graphiql: true,
+}));
+app.get("/", (req, res) => {
+    res.send("GET Raiz");
+});
+
 function getRole(username) {
     if(username == 'admin'){
         return 'admin';
@@ -81,12 +91,6 @@ function getRole(username) {
         return 'role1';
     }
 }
-
-app.use("/graphql", graphqlHTTP({
-    schema: Schema,
-    //rootValue: root,
-    graphiql: true,
-}));
 
 function authorize(...allowed) {
 
@@ -120,11 +124,8 @@ app.use(basicAuth({
 
 app.use("/account", authorize('admin', 'role1'), routerAccount);
 app.use(cors());
-app.get("/", (req, res) => {
-    res.send("GET Raiz");
-});
 
-app.listen("8080", async () => {
+app.listen("3000", async () => {
     try {
         await fs.readFile(global.fileName);
         logger.info("API Started!");
