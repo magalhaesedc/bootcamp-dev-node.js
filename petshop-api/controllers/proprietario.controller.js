@@ -23,7 +23,43 @@ async function buscarProprietarios(req, res, next){
     }
 }
 
+async function buscarProprietario(req, res, next){
+    try {
+        res.send(await ProprietarioService.buscarProprietario(req.params.id));
+        logger.info("GET /proprietario/"+req.params.id);
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function deletarProprietario(req, res, next){
+    try {
+        await ProprietarioService.deletarProprietario(req.params.id);
+        res.end();
+        logger.info("DELETE /proprietario/"+req.params.id);
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function atualizarProprietario(req, res, next){
+    try {
+        let proprietario = req.body;
+        if(!proprietario.proprietario_id || !proprietario.nome || !proprietario.telefone){
+            throw new Error("Proprietário ID, Nome, Telefone são obrigatórios.");
+        }
+        proprietario = await ProprietarioService.atualizarProprietario(proprietario);
+        res.send(proprietario);
+        logger.info(`PUT /proprietario - ${JSON.stringify(proprietario)}`);
+    } catch (err) {
+        next(err);
+    }
+}
+
 export default {
     inserirProprietario,
-    buscarProprietarios
+    buscarProprietarios,
+    buscarProprietario,
+    deletarProprietario,
+    atualizarProprietario
 }

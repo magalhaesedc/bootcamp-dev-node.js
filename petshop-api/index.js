@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import winston from "winston";
-import animaisRouter from "./routes/animais.router.js";
+import animaisRouter from "./routes/animal.router.js";
 import proprietariosRouter from "./routes/proprietario.router.js";
 
 const { combine, printf, label, timestamp} = winston.format;
@@ -25,6 +25,12 @@ global.logger = winston.createLogger({
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use("/animais", animaisRouter);
+app.use("/animal", animaisRouter);
 app.use("/proprietario", proprietariosRouter);
+
+app.use((err, req, res, next) => {
+    global.logger.error(`${req.method} ${req.baseUrl} - ${err.message}`);
+    res.status(400).send({ "error": err.message });
+});
+
 app.listen(3000, () => console.log("API Started!"));
