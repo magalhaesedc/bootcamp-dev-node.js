@@ -56,10 +56,87 @@ async function updateProduct(req, res, next){
     }
 }
 
+async function createProductInfo(req, res, next){
+    try {
+        let productInfo = req.body;
+        if(!productInfo.productId){
+            throw new Error("Product ID é obrigatório");
+        }
+        await ProductService.createProductInfo(productInfo);
+        res.end();
+        logger.info(`POST /product/info - ${JSON.stringify(productInfo)}`);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function getProductsInfo(req, res, next){
+    try {
+        res.send(await ProductService.getProductsInfo());
+        logger.info("GET /product/info");
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function updateProductInfo(req, res, next){
+    try {
+        let productInfo = req.body;
+        if(!productInfo.productId){
+            throw new Error("Product ID é obrigatório");
+        }
+        await ProductService.updateProductInfo(productInfo);
+        res.end();
+        logger.info(`PUT /product/info - ${JSON.stringify(productInfo)}`);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function createReview(req, res, next){
+    try {
+        let params = req.body;
+        if(!params.productId || !params.review){
+            throw new Error("Review e Product ID é obrigatório");
+        }
+        await ProductService.createReview(params.review, params.productId);
+        res.end();
+        logger.info(`POST /product/review - ${JSON.stringify(params)}`);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function deleteReview(req, res, next){
+    try {
+        await ProductService.deleteReview(req.params.id, req.params.index);
+        res.end();
+        logger.info(`DELETE /product/${req.params.id}/review/${req.params.index}`);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function deleteProductInfo(req, res, next){
+    try {
+        await ProductService.deleteProductInfo(req.params.id);
+        res.end();
+        logger.info(`DELETE /product/info/${req.params.id}`);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export default {
     createProduct,
     getProducts,
     getProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    createProductInfo,
+    updateProductInfo,
+    createReview,
+    deleteReview,
+    getProductsInfo,
+    deleteProductInfo
 }
