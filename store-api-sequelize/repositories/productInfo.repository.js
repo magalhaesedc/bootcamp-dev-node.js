@@ -122,9 +122,7 @@ async function getProductsInfo(){
         const mongoose = await connect();
         const ProductInfo = mongoose.model("ProductInfo", ProductInfoSchema);
         const query = ProductInfo.find({});
-        const result = await query.exec();
-        console.log(result);
-        return result;
+        return await query.exec();
     } catch (error) {
         throw error;
     }

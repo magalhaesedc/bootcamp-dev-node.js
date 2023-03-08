@@ -3,7 +3,7 @@ import AnimalService from "../services/animal.service.js";
 async function inserirAnimal(req, res, next){
     try {
         let animal = req.body;
-        if(!animal.nome || !animal.tipo || !animal.proprietario_id){
+        if(!animal.nome || !animal.tipo || !animal.proprietarioId){
             throw new Error("Nome, Tipo e Proprietario ID são obrigatórios.");
         }
         animal = await AnimalService.inserirAnimal(animal);
@@ -16,7 +16,7 @@ async function inserirAnimal(req, res, next){
 
 async function buscarAnimais(req, res, next){
     try {
-        res.send(await AnimalService.buscarAnimais(req.query.proprietario_id));
+        res.send(await AnimalService.buscarAnimais(req.query.proprietarioId));
         logger.info("GET /animais");
     } catch (err) {
         next(err);
@@ -45,7 +45,7 @@ async function deletarAnimal(req, res, next){
 async function atualizarAnimal(req, res, next){
     try {
         let animal = req.body;
-        if(!animal.animal_id || !animal.nome || !animal.tipo){
+        if(!animal.animalId || !animal.nome || !animal.tipo){
             throw new Error("Animal ID, Nome e Tipo são obrigatórios.");
         }
         animal = await AnimalService.atualizarAnimal(animal);

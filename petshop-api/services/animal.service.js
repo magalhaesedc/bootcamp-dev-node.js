@@ -2,16 +2,16 @@ import AnimalRepository from "../repositories/animal.repository.js";
 import ProprietarioRepository from "../repositories/proprietario.repository.js";
 
 async function inserirAnimal(animal){
-    const proprietario = await ProprietarioRepository.buscarProprietario(animal.proprietario_id);
+    const proprietario = await ProprietarioRepository.buscarProprietario(animal.proprietarioId);
     if(!proprietario){
         throw new Error("O proprietario selecionado não existe.");
     }
     return AnimalRepository.inserirAnimal(animal);
 }
 
-async function buscarAnimais(proprietario_id){
-    if(proprietario_id){
-        return AnimalRepository.buscarAnimaisPorProprietario(proprietario_id);
+async function buscarAnimais(proprietarioId){
+    if(proprietarioId){
+        return AnimalRepository.buscarAnimaisPorProprietario(proprietarioId);
     }
     return AnimalRepository.buscarAnimais();
 }
